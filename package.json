@@ -1,0 +1,32 @@
+{
+  "name": "biddable.contract",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "bignumber.js": "^4.1.0",
+    "ethereumjs-abi": "^0.6.4"
+  },
+  "scripts": {
+    "pretest": "node ./node_modules/.bin/ganache-cli > /dev/null 2>&1 &",
+    "test": "truffle test",
+    "posttest": "ps | grep ganache | grep -v grep | awk '{print $1}' | xargs -J % kill %",
+    "coverage": "./node_modules/.bin/solidity-coverage",
+    "lint": "node ./node_modules/solhint/solhint.js contracts/*.sol",
+    "versions": "truffle version",
+    "compile": "truffle compile",
+    "develop": "truffle develop"
+  },
+  "standard": {
+    "globals": [
+      "web3"
+    ]
+  },
+  "devDependencies": {
+    "ganache-cli": "^6.0.3",
+    "truffle": "^4.0.6",
+    "coveralls": "^3.0.0",
+    "solhint": "^1.1.7",
+    "solidity-coverage": "^0.2.7",
+    "husky": "^0.14.3"
+  }
+}

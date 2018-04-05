@@ -1,1 +1,8 @@
+*.iml
+*.ipr
+*.iws
+.idea
 build
+coverage
+coverage.json
+node_modules
