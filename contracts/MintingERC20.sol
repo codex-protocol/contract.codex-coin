@@ -5,13 +5,13 @@ import "./BiddableERC20.sol";
 
 contract MintingERC20 is BiddableERC20 {
 
-  //Variables
+  // Variables
   mapping(address => bool) public minters;
 
   uint256 public maxSupply;
-  bool public disableMinting;
+  bool public finishedMinting;
 
-  //  Modifiers
+  // Modifiers
   modifier onlyMinters () {
     require(true == minters[msg.sender]);
     _;
@@ -22,13 +22,11 @@ contract MintingERC20 is BiddableERC20 {
     uint256 _maxSupply,
     string _tokenName,
     uint8 _decimals,
-    string _symbol,
-    bool _transferAllSupplyToOwner,
-    bool _locked
-  ) public BiddableERC20(_initialSupply, _tokenName, _decimals, _symbol, _transferAllSupplyToOwner, _locked)
+    string _symbol
+  ) public BiddableERC20(_initialSupply, _tokenName, _decimals, _symbol)
   {
-    standard = "MintingERC20 0.1";
     minters[msg.sender] = true;
+    balances[msg.sender] = _initialSupply;
     maxSupply = _maxSupply;
   }
 
@@ -41,7 +39,7 @@ contract MintingERC20 is BiddableERC20 {
   }
 
   function mint(address _addr, uint256 _amount) public onlyMinters returns (uint256) {
-    if (true == disableMinting) {
+    if (finishedMinting) {
       return uint256(0);
     }
 
@@ -49,14 +47,18 @@ contract MintingERC20 is BiddableERC20 {
       return uint256(0);
     }
 
-    if (totalSupply.add(_amount) > maxSupply) {
+    if (totalSupply_.add(_amount) > maxSupply) {
       return uint256(0);
     }
 
-    totalSupply = totalSupply.add(_amount);
+    totalSupply_ = totalSupply_.add(_amount);
     balances[_addr] = balances[_addr].add(_amount);
     emit Transfer(address(0), _addr, _amount);
 
     return _amount;
+  }
+
+  function finishMinting() public onlyOwner {
+    finishedMinting = true;
   }
 }
