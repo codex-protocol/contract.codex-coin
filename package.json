@@ -10,6 +10,7 @@
     "lint": "npm run lint:js && npm run lint:sol",
     "lint:js": "eslint .",
     "lint:sol": "solium -d .",
+    "lint:sol:fix": "solium -d . --fix",
     "compile": "truffle compile"
   },
   "dependencies": {
@@ -20,6 +21,9 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
