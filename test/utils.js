@@ -80,62 +80,6 @@ function getTxCost (result) {
 
   return result.receipt.gasUsed * tx.gasPrice;
 }
-function getPhase (instance, id) {
-  return instance.phases.call(id)
-    .then(function (obj) {
-      if (obj.length === 3) {
-        return {
-          priceShouldMultiply: obj[0].valueOf(),
-          price: obj[1].valueOf(),
-          maxAmount: obj[2].valueOf(),
-        };
-      }
-      if (obj.length === 7) {
-        return {
-          price: obj[0].valueOf(),
-          maxAmount: obj[1].valueOf(),
-          since: obj[2].valueOf(),
-          till: obj[3].valueOf(),
-          tokensSold: obj[4].valueOf(),
-          collectedEthers: obj[5].valueOf(),
-          isFinished: obj[6].valueOf(),
-        };
-      }
-
-      if (obj.length === 6) {
-        return {
-          price: obj[0].valueOf(),
-          since: obj[1].valueOf(),
-          till: obj[2].valueOf(),
-          tokensSold: obj[3].valueOf(),
-          collectedEthers: obj[4].valueOf(),
-          isFinished: obj[5].valueOf(),
-        };
-      }
-
-      return {
-        price: obj[0].valueOf(),
-        maxAmount: obj[1].valueOf(),
-      };
-    });
-}
-
-function checkPhase (phase, price, since, till, tokensSold, collectedEthers, isFinished) {
-  return new Promise(function (resolve, reject) {
-    try {
-      assert.equal(phase.price, price, 'phase price is not equal');
-      assert.equal(phase.since, since, 'phase since is not equal');
-      assert.equal(phase.till, till, 'phase till is not equal');
-      assert.equal(phase.tokensSold, tokensSold, 'phase tokensSold is not equal');
-      assert.equal(phase.collectedEthers, collectedEthers, 'phase collectedEthers is not equal');
-      assert.equal(phase.isFinished, isFinished, 'phase isFinished is not equal');
-
-      resolve();
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
 
 function totalShouldEqualTo (instance, expected) {
   return new Promise(function (resolve, reject) {
@@ -152,14 +96,14 @@ function totalShouldEqualTo (instance, expected) {
   });
 }
 
-function lockedShouldEqualTo (instance, expected) {
+function pausedShouldEqualTo (instance, expected) {
   return new Promise(function (resolve, reject) {
     var promise;
 
-    promise = instance.locked();
+    promise = instance.paused();
 
     promise.then(function (boo) {
-      assert.equal(boo.valueOf(), expected, 'locked should be ' + expected);
+      assert.equal(boo.valueOf(), expected, 'paused should be ' + expected);
       resolve();
     }).catch(function (error) {
       reject(error);
@@ -175,21 +119,6 @@ function allowanceShouldEqualTo (instance, acc1, acc2, expected) {
 
     promise.then(function (boo) {
       assert.equal(boo.valueOf(), expected, 'allowance should be ' + expected);
-      resolve();
-    }).catch(function (error) {
-      reject(error);
-    });
-  });
-}
-
-function freezeShouldEqualTo (instance, expected) {
-  return new Promise(function (resolve, reject) {
-    var promise;
-
-    promise = instance.transferFrozen();
-
-    promise.then(function (boo) {
-      assert.equal(boo.valueOf(), expected, 'transferFrozen should be  ' + expected);
       resolve();
     }).catch(function (error) {
       reject(error);
@@ -220,12 +149,9 @@ module.exports = {
   timeout: timeout,
   getEtherBalance: getEtherBalance,
   checkEtherBalance: checkEtherBalance,
-  getPhase: getPhase,
-  checkPhase: checkPhase,
   getTxCost: getTxCost,
   totalShouldEqualTo: totalShouldEqualTo,
-  lockedShouldEqualTo: lockedShouldEqualTo,
-  freezeShouldEqualTo: freezeShouldEqualTo,
+  pausedShouldEqualTo: pausedShouldEqualTo,
   allowanceShouldEqualTo: allowanceShouldEqualTo,
   addressShouldBeMinter: addressShouldBeMinter,
 };

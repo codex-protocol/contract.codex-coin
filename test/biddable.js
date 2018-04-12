@@ -8,45 +8,29 @@ contract('Biddable', function (accounts) {
 
     return Biddable.new(
       1000000,
-      false
     ).then(function (_instance) {
       instance = _instance;
     })
       .then(() => Utils.totalShouldEqualTo(instance, 1000000));
   });
 
-  it('deploy & lock contract', function () {
+  it('deploy & pause contract', function () {
     var instance;
 
     return Biddable.new(
       1000000,
-      false
     ).then(function (_instance) {
       instance = _instance;
     })
-      .then(() => instance.setLocked(true))
-      .then(() => Utils.lockedShouldEqualTo(instance, true));
-  });
-
-  it('deploy & freeze contract', function () {
-    var instance;
-
-    return Biddable.new(
-      1000000,
-      false
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(() => instance.freezing(true))
-      .then(() => Utils.freezeShouldEqualTo(instance, true));
+      .then(() => instance.pause())
+      .then(() => Utils.pausedShouldEqualTo(instance, true));
   });
 
   it('deploy & mint', function () {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -60,8 +44,7 @@ contract('Biddable', function (accounts) {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -80,8 +63,7 @@ contract('Biddable', function (accounts) {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -103,8 +85,7 @@ contract('Biddable', function (accounts) {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -128,8 +109,7 @@ contract('Biddable', function (accounts) {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -153,8 +133,7 @@ contract('Biddable', function (accounts) {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -179,7 +158,6 @@ contract('Biddable', function (accounts) {
 
     return Biddable.new(
       1000000,
-      false
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -195,7 +173,6 @@ contract('Biddable', function (accounts) {
 
     return Biddable.new(
       1000000,
-      false
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -213,8 +190,7 @@ contract('Biddable', function (accounts) {
     var instance;
 
     return Biddable.new(
-      1000000,
-      false
+      0
     ).then(function (_instance) {
       instance = _instance;
     })
@@ -229,25 +205,26 @@ contract('Biddable', function (accounts) {
 
     return Biddable.new(
       1000000,
-      false
     ).then(function (_instance) {
       instance = _instance;
     })
       .then(function () {
         return instance.mint(accounts[0], 200000000000000000000000001);
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 0));
+      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000000));
   });
 
-  it('deploy locked & mint & try approve', function () {
+  it('deploy & pause & mint & try approve', function () {
     var instance;
 
     return Biddable.new(
-      1000000,
-      true
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
+      .then(function () {
+        return instance.pause();
+      })
       .then(function () {
         return instance.mint(accounts[0], 1000);
       })
@@ -255,21 +232,24 @@ contract('Biddable', function (accounts) {
       .then(function () {
         return instance.approve(accounts[0], 2);
       })
+      .catch(Utils.catchReceiptShouldFailed)
       .then(function () {
         return instance.allowance(accounts[0], accounts[1]);
       })
       .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
   });
 
-  it('deploy locked & mint & try increase approval', function () {
+  it('deploy & pause & mint & try increase approval', function () {
     var instance;
 
     return Biddable.new(
-      1000000,
-      true
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
+      .then(function () {
+        return instance.pause();
+      })
       .then(function () {
         return instance.mint(accounts[0], 1000);
       })
@@ -277,21 +257,24 @@ contract('Biddable', function (accounts) {
       .then(function () {
         return instance.increaseApproval(accounts[1], 10);
       })
+      .catch(Utils.catchReceiptShouldFailed)
       .then(function () {
         return instance.allowance(accounts[0], accounts[1]);
       })
       .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
   });
 
-  it('deploy locked & mint & try decrease approval', function () {
+  it('deploy & pause & mint & try decrease approval', function () {
     var instance;
 
     return Biddable.new(
-      1000000,
-      true
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
+      .then(function () {
+        return instance.pause();
+      })
       .then(function () {
         return instance.mint(accounts[0], 1000);
       })
@@ -299,21 +282,24 @@ contract('Biddable', function (accounts) {
       .then(function () {
         return instance.decreaseApproval(accounts[1], 10);
       })
+      .catch(Utils.catchReceiptShouldFailed)
       .then(function () {
         return instance.allowance(accounts[0], accounts[1]);
       })
       .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
   });
 
-  it('deploy locked & mint & try to transfer', function () {
+  it('deploy & pause & mint & try to transfer', function () {
     var instance;
 
     return Biddable.new(
-      1000000,
-      true
+      0,
     ).then(function (_instance) {
       instance = _instance;
     })
+      .then(function () {
+        return instance.pause();
+      })
       .then(function () {
         return instance.mint(accounts[0], 1000);
       })
@@ -321,9 +307,11 @@ contract('Biddable', function (accounts) {
       .then(function () {
         return instance.approve(accounts[0], 2);
       })
+      .catch(Utils.catchReceiptShouldFailed)
       .then(function () {
         return instance.transferFrom(accounts[0], accounts[2], 2);
       })
+      .catch(Utils.catchReceiptShouldFailed)
       .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
       .then(() => Utils.balanceShouldEqualTo(instance, accounts[2], 0));
   });

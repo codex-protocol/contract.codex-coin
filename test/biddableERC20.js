@@ -8,7 +8,7 @@ contract('BiddableERC20', function (accounts) {
     var instance;
 
     return BiddableERC20.new(
-      100000, 'Bid', 18, 'b', true, false
+      100000, 'Bid', 18, 'b'
     ).then(function (_instance) {
       instance = _instance;
     })
