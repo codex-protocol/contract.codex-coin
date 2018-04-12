@@ -214,6 +214,27 @@ contract('Biddable', function (accounts) {
       .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000000));
   });
 
+  it('deploy & mint & finish minting & try mint', function () {
+    var instance;
+
+    return Biddable.new(
+      0,
+    ).then(function (_instance) {
+      instance = _instance;
+    })
+      .then(function () {
+        return instance.mint(accounts[0], 1000);
+      })
+      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
+      .then(function () {
+        return instance.finishMinting();
+      })
+      .then(function () {
+        return instance.mint(accounts[0], 1000);
+      })
+      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000));
+  });
+
   it('deploy & pause & mint & try approve', function () {
     var instance;
 
