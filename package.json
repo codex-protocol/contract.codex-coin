@@ -1,32 +1,35 @@
 {
-  "name": "biddable.contract",
+  "name": "contract.biddex",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "bignumber.js": "^4.1.0",
-    "ethereumjs-abi": "^0.6.4"
-  },
   "scripts": {
-    "pretest": "node ./node_modules/.bin/ganache-cli > /dev/null 2>&1 &",
-    "test": "truffle test",
-    "posttest": "ps | grep ganache | grep -v grep | awk '{print $1}' | xargs -J % kill %",
     "coverage": "./node_modules/.bin/solidity-coverage",
-    "lint": "node ./node_modules/solhint/solhint.js contracts/*.sol",
-    "versions": "truffle version",
-    "compile": "truffle compile",
-    "develop": "truffle develop"
+    "migrate": "truffle migrate --network ganache && npm run copy",
+    "migrate:reset": "rm -rf build && truffle migrate --reset --network ganache && npm run copy",
+    "test": "truffle test --network ganache",
+    "lint": "npm run lint:js && npm run lint:sol",
+    "lint:js": "eslint .",
+    "lint:sol": "solium -d .",
+    "compile": "truffle compile"
   },
-  "standard": {
-    "globals": [
-      "web3"
-    ]
+  "dependencies": {
+    "ethereumjs-abi": "^0.6.4",
+    "zeppelin-solidity": "^1.8.0"
   },
   "devDependencies": {
-    "ganache-cli": "^6.0.3",
-    "truffle": "^4.0.6",
-    "coveralls": "^3.0.0",
-    "solhint": "^1.1.7",
-    "solidity-coverage": "^0.2.7",
-    "husky": "^0.14.3"
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "ethereumjs-util": "^5.1.5",
+    "solidity-coverage": "^0.4.15",
+    "solium": "^1.1.6",
+    "truffle": "^4.1.5"
   }
 }
