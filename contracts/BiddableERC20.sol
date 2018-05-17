@@ -1,8 +1,8 @@
-pragma solidity 0.4.21;
+pragma solidity 0.4.23;
 
-import "./zeppelin-solidity/ownership/CanReclaimToken.sol";
-import "./zeppelin-solidity/token/ERC20/StandardToken.sol";
-import "./zeppelin-solidity/lifecycle/Pausable.sol";
+import "./ERC20/StandardToken.sol";
+import "./zeppelin-solidity/Pausable.sol";
+import "./zeppelin-solidity/CanReclaimToken.sol";
 
 
 contract BiddableERC20 is StandardToken, CanReclaimToken, Pausable {
@@ -16,7 +16,7 @@ contract BiddableERC20 is StandardToken, CanReclaimToken, Pausable {
   string public symbol;
 
   /* Initializes contract with initial supply tokens to the creator of the contract */
-  function BiddableERC20(
+  constructor(
     uint256 _totalSupply,
     string _tokenName,
     uint8 _decimalUnits,

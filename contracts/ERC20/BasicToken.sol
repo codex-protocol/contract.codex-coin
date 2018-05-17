@@ -1,8 +1,8 @@
-pragma solidity 0.4.21;
+pragma solidity 0.4.23;
 
 
 import "./ERC20Basic.sol";
-import "../../math/SafeMath.sol";
+import "../zeppelin-solidity/SafeMath.sol";
 
 
 /**

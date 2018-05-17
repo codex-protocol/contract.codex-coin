@@ -1,4 +1,4 @@
-pragma solidity 0.4.21;
+pragma solidity 0.4.23;
 
 import "./BiddableERC20.sol";
 
@@ -17,7 +17,7 @@ contract MintingERC20 is BiddableERC20 {
     _;
   }
 
-  function MintingERC20(
+  constructor(
     uint256 _initialSupply,
     uint256 _maxSupply,
     string _tokenName,
