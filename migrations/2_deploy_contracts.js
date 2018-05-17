@@ -1,7 +1,7 @@
-const Biddable = artifacts.require('./Biddable.sol')
+const CodexToken = artifacts.require('./CodexToken.sol')
 
 module.exports = (deployer, network, accounts) => {
   if (network === 'ganache') {
-    deployer.deploy(Biddable, 0)
+    deployer.deploy(CodexToken, 0)
   }
 }

@@ -1,4 +1,4 @@
-# Codex Protocol | BidDex
+# Codex Protocol | Codex Token Contract
 
 ## Notes
 - ERC-20 Token for Codex Protocol

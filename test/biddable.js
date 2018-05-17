@@ -1,14 +1,14 @@
 import utils from './utils'
 
-const Biddable = artifacts.require('../contracts/Biddable.sol')
+const CodexToken = artifacts.require('../contracts/CodexToken.sol')
 
-contract('Biddable', (accounts) => {
+contract('CodexToken', (accounts) => {
 
   it('deploy & check for total', () => {
 
     let instance
 
-    return Biddable.new(1000000)
+    return CodexToken.new(1000000)
       .then((_instance) => {
         instance = _instance
       })
@@ -21,7 +21,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(1000000)
+    return CodexToken.new(1000000)
       .then((_instance) => {
         instance = _instance
       })
@@ -37,7 +37,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -53,7 +53,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -78,7 +78,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -106,7 +106,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -134,7 +134,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -162,7 +162,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -190,7 +190,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(1000000)
+    return CodexToken.new(1000000)
       .then((_instance) => {
         instance = _instance
       })
@@ -209,7 +209,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(1000000)
+    return CodexToken.new(1000000)
       .then((_instance) => {
         instance = _instance
       })
@@ -231,7 +231,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -247,7 +247,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(1000000)
+    return CodexToken.new(1000000)
       .then((_instance) => {
         instance = _instance
       })
@@ -263,7 +263,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -288,7 +288,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -317,7 +317,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -346,7 +346,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })
@@ -375,7 +375,7 @@ contract('Biddable', (accounts) => {
 
     let instance
 
-    return Biddable.new(0)
+    return CodexToken.new(0)
       .then((_instance) => {
         instance = _instance
       })

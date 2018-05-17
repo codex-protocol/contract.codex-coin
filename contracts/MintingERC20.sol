@@ -1,9 +1,9 @@
 pragma solidity 0.4.23;
 
-import "./BiddableERC20.sol";
+import "./CodexTokenERC20.sol";
 
 
-contract MintingERC20 is BiddableERC20 {
+contract MintingERC20 is CodexTokenERC20 {
 
   // Variables
   mapping(address => bool) public minters;
@@ -23,7 +23,7 @@ contract MintingERC20 is BiddableERC20 {
     string _tokenName,
     uint8 _decimals,
     string _symbol
-  ) public BiddableERC20(_initialSupply, _tokenName, _decimals, _symbol)
+  ) public CodexTokenERC20(_initialSupply, _tokenName, _decimals, _symbol)
   {
     minters[msg.sender] = true;
     balances[msg.sender] = _initialSupply;

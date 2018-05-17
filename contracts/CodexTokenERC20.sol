@@ -5,7 +5,7 @@ import "./zeppelin-solidity/Pausable.sol";
 import "./zeppelin-solidity/CanReclaimToken.sol";
 
 
-contract BiddableERC20 is StandardToken, CanReclaimToken, Pausable {
+contract CodexTokenERC20 is StandardToken, CanReclaimToken, Pausable {
   /* Public variables of the token */
   uint256 public creationBlock;
 
