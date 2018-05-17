@@ -1,7 +1,7 @@
-const Biddable = artifacts.require('./Biddable.sol');
+const Biddable = artifacts.require('./Biddable.sol')
 
-module.exports = function (deployer, network, accounts) {
+module.exports = (deployer, network, accounts) => {
   if (network === 'ganache') {
-    deployer.deploy(Biddable, 0);
+    deployer.deploy(Biddable, 0)
   }
-};
+}

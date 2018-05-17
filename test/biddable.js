@@ -1,339 +1,406 @@
-import Utils from './utils';
+import utils from './utils'
 
-const Biddable = artifacts.require('../contracts/Biddable.sol');
+const Biddable = artifacts.require('../contracts/Biddable.sol')
 
-contract('Biddable', function (accounts) {
-  it('deploy & check for total', function () {
-    var instance;
+contract('Biddable', (accounts) => {
 
-    return Biddable.new(
-      1000000,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(() => Utils.totalShouldEqualTo(instance, 1000000));
-  });
+  it('deploy & check for total', () => {
 
-  it('deploy & pause contract', function () {
-    var instance;
+    let instance
 
-    return Biddable.new(
-      1000000,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(() => instance.pause())
-      .then(() => Utils.pausedShouldEqualTo(instance, true));
-  });
+    return Biddable.new(1000000)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return utils.totalShouldEqualTo(instance, 1000000)
+      })
+  })
 
-  it('deploy & mint', function () {
-    var instance;
+  it('deploy & pause contract', () => {
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000));
-  });
+    let instance
 
-  it('deploy & mint & transfer', function () {
-    var instance;
+    return Biddable.new(1000000)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.pause()
+      })
+      .then(() => {
+        return utils.pausedShouldEqualTo(instance, true)
+      })
+  })
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.transfer(accounts[1], 10);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[1], 10))
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 990));
-  });
+  it('deploy & mint', () => {
 
-  it('deploy & mint & approve & transfer from account', function () {
-    var instance;
+    let instance
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.approve(accounts[0], 2);
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
       })
-      .then(function () {
-        return instance.transferFrom(accounts[0], accounts[2], 2);
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 998))
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[2], 2));
-  });
+  })
 
-  it('deploy & mint & approve & decrease approve', function () {
-    var instance;
+  it('deploy & mint & transfer', () => {
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[1], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[1], 1000))
-      .then(function () {
-        return instance.approve(accounts[1], 20);
-      })
-      .then(function () {
-        return instance.decreaseApproval(accounts[1], 10);
-      })
-      .then(function () {
-        return instance.allowance(accounts[0], accounts[1]);
-      })
-      .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 10));
-  });
+    let instance
 
-  it('deploy & mint & approve & try to decrease on value bigger then exists', function () {
-    var instance;
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return instance.transfer(accounts[1], 10)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[1], 10)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 990)
+      })
+  })
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[1], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[1], 1000))
-      .then(function () {
-        return instance.approve(accounts[1], 20);
-      })
-      .then(function () {
-        return instance.decreaseApproval(accounts[1], 30);
-      })
-      .then(function () {
-        return instance.allowance(accounts[0], accounts[1]);
-      })
-      .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
-  });
+  it('deploy & mint & approve & transfer from account', () => {
 
-  it('deploy & mint & approve & increase approve', function () {
-    var instance;
+    let instance
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[1], 1000);
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[1], 1000))
-      .then(function () {
-        return instance.approve(accounts[1], 20);
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
       })
-      .then(function () {
-        return instance.increaseApproval(accounts[1], 10);
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
       })
-      .then(function () {
-        return instance.allowance(accounts[0], accounts[1]);
+      .then(() => {
+        return instance.approve(accounts[0], 2)
       })
-      .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 30));
-  });
+      .then(() => {
+        return instance.transferFrom(accounts[0], accounts[2], 2)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 998)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[2], 2)
+      })
+  })
 
-  it('deploy & add minter', function () {
-    var instance;
+  it('deploy & mint & approve & decrease approve', () => {
 
-    return Biddable.new(
-      1000000,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(() => Utils.totalShouldEqualTo(instance, 1000000))
-      .then(function () {
-        return instance.addMinter(accounts[0]);
-      })
-      .then(() => Utils.addressShouldBeMinter(instance, accounts[0], true));
-  });
+    let instance
 
-  it('deploy & remove minter', function () {
-    var instance;
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.mint(accounts[1], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[1], 1000)
+      })
+      .then(() => {
+        return instance.approve(accounts[1], 20)
+      })
+      .then(() => {
+        return instance.decreaseApproval(accounts[1], 10)
+      })
+      .then(() => {
+        return instance.allowance(accounts[0], accounts[1])
+      })
+      .then(() => {
+        return utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 10)
+      })
+  })
 
-    return Biddable.new(
-      1000000,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(() => Utils.totalShouldEqualTo(instance, 1000000))
-      .then(function () {
-        return instance.addMinter(accounts[0]);
-      })
-      .then(function () {
-        return instance.removeMinter(accounts[0]);
-      })
-      .then(() => Utils.addressShouldBeMinter(instance, accounts[0], false));
-  });
+  it('deploy & mint & approve & try to decrease on value bigger then exists', () => {
 
-  it('deploy & mint 0', function () {
-    var instance;
+    let instance
 
-    return Biddable.new(
-      0
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[0], 0);
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 0));
-  });
+      .then(() => {
+        return instance.mint(accounts[1], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[1], 1000)
+      })
+      .then(() => {
+        return instance.approve(accounts[1], 20)
+      })
+      .then(() => {
+        return instance.decreaseApproval(accounts[1], 30)
+      })
+      .then(() => {
+        return instance.allowance(accounts[0], accounts[1])
+      })
+      .then(() => {
+        return utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0)
+      })
+  })
 
-  it('deploy & mint > maxSupply', function () {
-    var instance;
+  it('deploy & mint & approve & increase approve', () => {
 
-    return Biddable.new(
-      1000000,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[0], 200000000000000000000000001);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000000));
-  });
+    let instance
 
-  it('deploy & mint & finish minting & try mint', function () {
-    var instance;
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.mint(accounts[1], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[1], 1000)
+      })
+      .then(() => {
+        return instance.approve(accounts[1], 20)
+      })
+      .then(() => {
+        return instance.increaseApproval(accounts[1], 10)
+      })
+      .then(() => {
+        return instance.allowance(accounts[0], accounts[1])
+      })
+      .then(() => {
+        return utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 30)
+      })
+  })
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.finishMinting();
-      })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000));
-  });
+  it('deploy & add minter', () => {
 
-  it('deploy & pause & mint & try approve', function () {
-    var instance;
+    let instance
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.pause();
+    return Biddable.new(1000000)
+      .then((_instance) => {
+        instance = _instance
       })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
+      .then(() => {
+        return utils.totalShouldEqualTo(instance, 1000000)
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.approve(accounts[0], 2);
+      .then(() => {
+        return instance.addMinter(accounts[0])
       })
-      .catch(Utils.catchReceiptShouldFailed)
-      .then(function () {
-        return instance.allowance(accounts[0], accounts[1]);
+      .then(() => {
+        return utils.addressShouldBeMinter(instance, accounts[0], true)
       })
-      .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
-  });
+  })
 
-  it('deploy & pause & mint & try increase approval', function () {
-    var instance;
+  it('deploy & remove minter', () => {
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.pause();
-      })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.increaseApproval(accounts[1], 10);
-      })
-      .catch(Utils.catchReceiptShouldFailed)
-      .then(function () {
-        return instance.allowance(accounts[0], accounts[1]);
-      })
-      .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
-  });
+    let instance
 
-  it('deploy & pause & mint & try decrease approval', function () {
-    var instance;
+    return Biddable.new(1000000)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return utils.totalShouldEqualTo(instance, 1000000)
+      })
+      .then(() => {
+        return instance.addMinter(accounts[0])
+      })
+      .then(() => {
+        return instance.removeMinter(accounts[0])
+      })
+      .then(() => {
+        return utils.addressShouldBeMinter(instance, accounts[0], false)
+      })
+  })
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.pause();
-      })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
-      })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.decreaseApproval(accounts[1], 10);
-      })
-      .catch(Utils.catchReceiptShouldFailed)
-      .then(function () {
-        return instance.allowance(accounts[0], accounts[1]);
-      })
-      .then(() => Utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0));
-  });
+  it('deploy & mint 0', () => {
 
-  it('deploy & pause & mint & try to transfer', function () {
-    var instance;
+    let instance
 
-    return Biddable.new(
-      0,
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(function () {
-        return instance.pause();
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
       })
-      .then(function () {
-        return instance.mint(accounts[0], 1000);
+      .then(() => {
+        return instance.mint(accounts[0], 0)
       })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(function () {
-        return instance.approve(accounts[0], 2);
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 0)
       })
-      .catch(Utils.catchReceiptShouldFailed)
-      .then(function () {
-        return instance.transferFrom(accounts[0], accounts[2], 2);
+  })
+
+  it('deploy & mint > maxSupply', () => {
+
+    let instance
+
+    return Biddable.new(1000000)
+      .then((_instance) => {
+        instance = _instance
       })
-      .catch(Utils.catchReceiptShouldFailed)
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 1000))
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[2], 0));
-  });
-});
+      .then(() => {
+        return instance.mint(accounts[0], 200000000000000000000000001)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000000)
+      })
+  })
+
+  it('deploy & mint & finish minting & try mint', () => {
+
+    let instance
+
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return instance.finishMinting()
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+  })
+
+  it('deploy & pause & mint & try approve', () => {
+
+    let instance
+
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.pause()
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return instance.approve(accounts[0], 2)
+      })
+      .catch(utils.catchReceiptShouldFailed)
+      .then(() => {
+        return instance.allowance(accounts[0], accounts[1])
+      })
+      .then(() => {
+        return utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0)
+      })
+  })
+
+  it('deploy & pause & mint & try increase approval', () => {
+
+    let instance
+
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.pause()
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return instance.increaseApproval(accounts[1], 10)
+      })
+      .catch(utils.catchReceiptShouldFailed)
+      .then(() => {
+        return instance.allowance(accounts[0], accounts[1])
+      })
+      .then(() => {
+        return utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0)
+      })
+  })
+
+  it('deploy & pause & mint & try decrease approval', () => {
+
+    let instance
+
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.pause()
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return instance.decreaseApproval(accounts[1], 10)
+      })
+      .catch(utils.catchReceiptShouldFailed)
+      .then(() => {
+        return instance.allowance(accounts[0], accounts[1])
+      })
+      .then(() => {
+        return utils.allowanceShouldEqualTo(instance, accounts[0], accounts[1], 0)
+      })
+  })
+
+  it('deploy & pause & mint & try to transfer', () => {
+
+    let instance
+
+    return Biddable.new(0)
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return instance.pause()
+      })
+      .then(() => {
+        return instance.mint(accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return instance.approve(accounts[0], 2)
+      })
+      .catch(utils.catchReceiptShouldFailed)
+      .then(() => {
+        return instance.transferFrom(accounts[0], accounts[2], 2)
+      })
+      .catch(utils.catchReceiptShouldFailed)
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 1000)
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[2], 0)
+      })
+  })
+})

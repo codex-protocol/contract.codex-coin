@@ -1,17 +1,20 @@
-import Utils from './utils';
+import utils from './utils'
 
-const BiddableERC20 = artifacts.require('../contracts/BiddableERC20.sol');
+const BiddableERC20 = artifacts.require('../contracts/BiddableERC20.sol')
 
-contract('BiddableERC20', function (accounts) {
+contract('BiddableERC20', (accounts) => {
+
   // special case which cannot be reached from Biddable
-  it('deploy & check for total', function () {
-    var instance;
+  it('deploy & check for total', () => {
 
-    return BiddableERC20.new(
-      100000, 'Bid', 18, 'b'
-    ).then(function (_instance) {
-      instance = _instance;
-    })
-      .then(() => Utils.balanceShouldEqualTo(instance, accounts[0], 100000));
-  });
-});
+    let instance
+
+    return BiddableERC20.new(100000, 'Bid', 18, 'b')
+      .then((_instance) => {
+        instance = _instance
+      })
+      .then(() => {
+        return utils.balanceShouldEqualTo(instance, accounts[0], 100000)
+      })
+  })
+})

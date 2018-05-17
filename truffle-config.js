@@ -1,5 +1,5 @@
-require('babel-register');
-require('babel-polyfill');
+require('babel-register')
+require('babel-polyfill')
 
 module.exports = {
   networks: {
@@ -26,4 +26,4 @@ module.exports = {
       network_id: '*', // eslint-disable-line camelcase
     },
   },
-};
+}
