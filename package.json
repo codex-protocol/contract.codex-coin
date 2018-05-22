@@ -24,8 +24,10 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
+    "dotenv": "^5.0.1",
     "ethereumjs-abi": "^0.6.4",
-    "truffle": "^4.1.8"
+    "truffle": "^4.1.8",
+    "truffle-hdwallet-provider": "0.0.5"
   },
   "devDependencies": {
     "@codex-protocol/eslint-config-base": "latest",

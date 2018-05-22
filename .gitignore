@@ -1,8 +1,5 @@
-*.iml
-*.ipr
-*.iws
-.idea
+node_modules
 build
+.env
 coverage
 coverage.json
-node_modules
