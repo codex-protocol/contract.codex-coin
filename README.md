@@ -1,4 +1,4 @@
-# Codex Protocol | Codex Token Contract
+# Codex Protocol | CodexCoin (CODX) Contract
 
 ## Notes
 - ERC-20 Token for Codex Protocol

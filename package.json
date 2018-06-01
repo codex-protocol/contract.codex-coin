@@ -1,5 +1,5 @@
 {
-  "name": "contract.codex-token",
+  "name": "contract.codex-coin",
   "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf build",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codex-protocol/contract.codex-token"
+    "url": "https://github.com/codex-protocol/contract.codex-coin"
   },
   "keywords": [
     "codex"
