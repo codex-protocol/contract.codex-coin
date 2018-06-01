@@ -1,4 +1,4 @@
-const CodexToken = artifacts.require('./CodexToken.sol')
+const CodexToken = artifacts.require('./CodexCoin.sol')
 
 module.exports = (deployer, network, accounts) => {
 

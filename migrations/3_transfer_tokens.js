@@ -1,14 +1,14 @@
-const CodexToken = artifacts.require('./CodexToken.sol')
+const CodexCoin = artifacts.require('./CodexCoin.sol')
 
 module.exports = (deployer, network, accounts) => {
 
   deployer
     .then(async () => {
 
-      await CodexToken.deployed()
-        .then(async (codexToken) => {
+      await CodexCoin.deployed()
+        .then(async (codexCoin) => {
 
-          const totalSupply = await codexToken.totalSupply()
+          const totalSupply = await codexCoin.totalSupply()
 
           let transferAddress = null
 
@@ -29,7 +29,7 @@ module.exports = (deployer, network, accounts) => {
 
           console.log(`transferring all ${totalSupply} tokens to:`, transferAddress)
 
-          await codexToken.transfer(transferAddress, totalSupply)
+          await codexCoin.transfer(transferAddress, totalSupply)
 
         })
     })

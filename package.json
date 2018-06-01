@@ -8,8 +8,8 @@
     "copy": "cp build/contracts/CodexToken.json $PWD/../npm.ethereum-service/static/contracts-source/5777 && npm run build-ethereum-service",
     "copy:staging": "cp build/contracts/CodexToken.json $PWD/../npm.ethereum-service/static/contracts-source/4 && npm run build-ethereum-service",
     "copy:production": "cp build/contracts/CodexToken.json $PWD/../npm.ethereum-service/static/contracts-source/1 && npm run build-ethereum-service",
-    "migrate": "npm run lint && truffle migrate --network ganache && npm run copy",
-    "migrate:reset": "npm run clean && npm run lint && truffle migrate --reset --network ganache && npm run copy",
+    "migrate": "npm run lint && truffle migrate --network ganache",
+    "migrate:reset": "npm run clean && npm run lint && truffle migrate --reset --network ganache",
     "migrate:staging": "npm run lint && truffle migrate --network rinkeby && npm run copy:staging",
     "migrate:reset:staging": "npm run clean && npm run lint && truffle migrate --reset --network rinkeby && npm run copy:staging",
     "migrate:production": "npm run lint && truffle migrate --network mainnet && npm run copy:production",
@@ -41,6 +41,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
     "ethereumjs-util": "^5.1.5",
+    "solc": "^0.4.24",
     "solidity-coverage": "^0.4.15",
     "solium": "^1.1.7"
   }
