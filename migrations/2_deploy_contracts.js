@@ -1,4 +1,4 @@
-const CodexToken = artifacts.require('./CodexCoin.sol')
+const CodexCoin = artifacts.require('./CodexCoin.sol')
 
 module.exports = (deployer, network, accounts) => {
 
@@ -7,7 +7,7 @@ module.exports = (deployer, network, accounts) => {
     case 'rinkeby':
     case 'coverage':
     case 'development':
-      deployer.deploy(CodexToken, '200000000000000000000000000')
+      deployer.deploy(CodexCoin, '200000000000000000000000000')
       break
 
     default:
