@@ -1,7 +1,6 @@
 {
   "name": "contract.codex-token",
-  "version": "0.0.1",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf build",
     "build-ethereum-service": "cd $PWD/../npm.ethereum-service && npm run build",
@@ -21,12 +20,21 @@
     "lint:sol": "solium -d .",
     "compile": "truffle compile"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codex-protocol/contract.codex-token"
+  },
+  "keywords": [
+    "codex"
+  ],
+  "author": "Codex Protocol <contact@codexprotocol.com>",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "dotenv": "^5.0.1",
     "ethereumjs-abi": "^0.6.4",
-    "truffle": "^4.1.8",
+    "truffle": "^4.1.11",
     "truffle-hdwallet-provider": "0.0.5"
   },
   "devDependencies": {
@@ -40,9 +48,9 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.11.0",
-    "ethereumjs-util": "^5.1.5",
+    "ethereumjs-util": "^5.2.0",
     "solc": "^0.4.24",
-    "solidity-coverage": "^0.4.15",
+    "solidity-coverage": "^0.5.4",
     "solium": "^1.1.7"
   }
 }
