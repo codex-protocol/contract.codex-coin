@@ -7,7 +7,7 @@ module.exports = (deployer, network, accounts) => {
     case 'rinkeby':
     case 'coverage':
     case 'development':
-      deployer.deploy(CodexCoin, '200000000000000000000000000')
+      deployer.deploy(CodexCoin, '1000000000000000000000000000') // 1b tokens
       break
 
     default:
