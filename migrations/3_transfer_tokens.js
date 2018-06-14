@@ -19,6 +19,7 @@ module.exports = (deployer, network, accounts) => {
               transferAddress = accounts[2]
               break
 
+            case 'ropsten':
             case 'rinkeby':
               transferAddress = '0x60f8f4BA00Fc1BdCb482b3F8D8929492C00e81f3'
               break

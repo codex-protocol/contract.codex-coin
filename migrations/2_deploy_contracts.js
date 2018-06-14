@@ -4,6 +4,7 @@ module.exports = (deployer, network, accounts) => {
 
   switch (network) {
     case 'ganache':
+    case 'ropsten':
     case 'rinkeby':
     case 'coverage':
     case 'development':
